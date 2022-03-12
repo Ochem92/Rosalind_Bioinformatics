@@ -1,0 +1,38 @@
+
+#use a dictnary for this, ID = key, Sequence = value
+#get txt name from user
+
+FASTA_name = input('Enter File name for GC content calculation: \n')
+#read the opened document
+FASTA_open = open(FASTA_name)
+FASTA_file = FASTA_open.readlines()
+
+#Debugged and IDEL is reading and opening the files
+
+
+
+#counts the contents of the sequence and output GC ratio
+def gc_content(sequence):
+    return((sequence.count('C') + sequence.count('G') / len(sequence))
+
+#use dict to store ID and seq as a K,V pair
+FASTA_dic = {}
+#hold the looped ID
+FASTA_ID = ''
+
+for line in FASTA_file:
+    line = line.rstrip()
+    if '>' in line:
+           #creates a Key for the dict
+        FASTA_ID = line
+           #value of the key is unknown
+        FASTA_dic[FASTA_ID] = ''
+    else:
+            #if the line is w/o > gains the value of the line
+        FASTA_dic[FASTA_ID] += line
+
+
+#GC results will also be stored in a dict as a tuple k,v = ID, GC%
+
+GC_dict = {key: gc_content(value) for (key,value) in FASTA_dic.items()}
+
